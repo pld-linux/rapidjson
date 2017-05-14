@@ -4,10 +4,10 @@ Version:	1.1.0
 Release:	1
 License:	MIT
 Group:		Libraries
-URL:		http://miloyip.github.io/rapidjson
 Source0:	https://github.com/miloyip/rapidjson/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	badd12c511e081fec6c89c43a7027bce
 Patch0:		%{name}-1.1.0-do_not_include_gtest_src_dir.patch
+URL:		http://miloyip.github.io/rapidjson
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	gtest-devel
@@ -44,7 +44,9 @@ format. RapidJSON should be in fully compliance with RFC4627/ECMA-404.
 %package devel
 Summary:	Fast JSON parser and generator for C++
 Group:		Development/Libraries
+%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
+%endif
 
 %description devel
 RapidJSON is a fast JSON parser and generator for C++. It was inspired
@@ -76,7 +78,9 @@ format. RapidJSON should be in fully compliance with RFC4627/ECMA-404.
 %package doc
 Summary:	Documentation-files for %{name}
 Group:		Documentation
+%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
+%endif
 
 %description doc
 This package contains the documentation-files for %{name}.
@@ -86,11 +90,11 @@ This package contains the documentation-files for %{name}.
 %patch0 -p1
 
 # Disable -Werror.
-%{_bindir}/find . -type f -name 'CMakeLists.txt' -print0 | \
+find . -type f -name 'CMakeLists.txt' -print0 | \
 	xargs -0 %{__sed} -i -e's![ \t]*-march=native!!g' -e's![ \t]*-Werror!!g'
 
 %build
-mkdir build
+install -d build
 cd build
 %cmake .. \
 	-DGTESTSRC_FOUND=TRUE \
@@ -119,7 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGELOG.md readme*.md
 %{_datadir}/cmake
-%{_npkgconfigdir}/*
+%{_npkgconfigdir}/*.pc
 %{_includedir}/%{name}
 
 %files doc
