@@ -1,9 +1,11 @@
 Summary:	Fast JSON parser and generator for C++
+Summary(pl.UTF-8):	Szybki parser i generator JSON-a dla C++
 Name:		rapidjson
 Version:	1.1.0
 Release:	1
 License:	MIT
 Group:		Libraries
+#Source0Download: https://github.com/Tencent/rapidjson/releases
 Source0:	https://github.com/miloyip/rapidjson/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	badd12c511e081fec6c89c43a7027bce
 Patch0:		%{name}-1.1.0-do_not_include_gtest_src_dir.patch
@@ -11,6 +13,7 @@ URL:		http://miloyip.github.io/rapidjson
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	gtest-devel
+BuildRequires:	rpmbuild(macros) >= 1.748
 BuildRequires:	valgrind
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -27,24 +30,30 @@ also optionally supports SSE2/SSE4.1 for acceleration.
 RapidJSON is self-contained. It does not depend on external libraries
 such as BOOST. It even does not depend on STL.
 
-RapidJSON is memory friendly. Each JSON value occupies exactly 16/20
-bytes for most 32/64-bit machines (excluding text string). By default
-it uses a fast memory allocator, and the parser allocates memory
-compactly during parsing.
-
-RapidJSON is Unicode friendly. It supports UTF-8, UTF-16, UTF-32 (LE &
-BE), and their detection, validation and transcoding internally. For
-example, you can read a UTF-8 file and let RapidJSON transcode the
-JSON strings into UTF-16 in the DOM. It also supports surrogates and
-"\u0000" (null character).
-
-JSON(JavaScript Object Notation) is a light-weight data exchange
+JSON (JavaScript Object Notation) is a light-weight data exchange
 format. RapidJSON should be in fully compliance with RFC4627/ECMA-404.
+
+%description -l pl.UTF-8
+RapidJSON to szybki parser i generator JSON-a dla C++. Został
+zainspirowany przez RapidXml.
+
+RapidJSON jest mały, ale kompletny. Obsługuje API zarówno w stylu SAX,
+jak i DOM. Parser SAX ma jedynie pięćset linii kodu.
+
+RapidJSON jest szybki, Wydajność jest porównywalna ze strlen().
+Opcjonalnie obsługuje także SSE2/SSE4.1.
+
+RapidJSON jest samodzielny. Nie zależy od zewnętrznych bibliotek,
+takich jak BOOST. Nie wymaga nawet STL-a.
+
+JSON (JavaScript Object Notation) to lekki format wymiany danych.
+RapidJSON powinien być w pełni zgodny z RFC4627/ECMA-404.
 
 %package devel
 Summary:	Fast JSON parser and generator for C++
+Summary(pl.UTF-8):	Szybki parser i generator JSON-a dla C++
 Group:		Development/Libraries
-%if "%{_rpmversion}" >= "5"
+%if %{_ver_ge "%{_rpmversion}" "4.6"}
 BuildArch:	noarch
 %endif
 
@@ -61,29 +70,38 @@ also optionally supports SSE2/SSE4.1 for acceleration.
 RapidJSON is self-contained. It does not depend on external libraries
 such as BOOST. It even does not depend on STL.
 
-RapidJSON is memory friendly. Each JSON value occupies exactly 16/20
-bytes for most 32/64-bit machines (excluding text string). By default
-it uses a fast memory allocator, and the parser allocates memory
-compactly during parsing.
-
-RapidJSON is Unicode friendly. It supports UTF-8, UTF-16, UTF-32 (LE &
-BE), and their detection, validation and transcoding internally. For
-example, you can read a UTF-8 file and let RapidJSON transcode the
-JSON strings into UTF-16 in the DOM. It also supports surrogates and
-"\u0000" (null character).
-
-JSON(JavaScript Object Notation) is a light-weight data exchange
+JSON (JavaScript Object Notation) is a light-weight data exchange
 format. RapidJSON should be in fully compliance with RFC4627/ECMA-404.
 
+%description devel -l pl.UTF-8
+RapidJSON to szybki parser i generator JSON-a dla C++. Został
+zainspirowany przez RapidXml.
+
+RapidJSON jest mały, ale kompletny. Obsługuje API zarówno w stylu SAX,
+jak i DOM. Parser SAX ma jedynie pięćset linii kodu.
+
+RapidJSON jest szybki, Wydajność jest porównywalna ze strlen().
+Opcjonalnie obsługuje także SSE2/SSE4.1.
+
+RapidJSON jest samodzielny. Nie zależy od zewnętrznych bibliotek,
+takich jak BOOST. Nie wymaga nawet STL-a.
+
+JSON (JavaScript Object Notation) to lekki format wymiany danych.
+RapidJSON powinien być w pełni zgodny z RFC4627/ECMA-404.
+
 %package doc
-Summary:	Documentation-files for %{name}
+Summary:	Documentation files for RapidJSON
+Summary(pl.UTF-8):	Dokumentacja do biblioteki RapidJSON
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
+%if %{_ver_ge "%{_rpmversion}" "4.6"}
 BuildArch:	noarch
 %endif
 
 %description doc
-This package contains the documentation-files for %{name}.
+This package contains the documentation files for RapidJSON.
+
+%description doc -l pl.UTF-8
+Dokumentacja do biblioteki RapidJSON.
 
 %prep
 %setup -q
@@ -110,7 +128,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 	DESTDIR=$RPM_BUILD_ROOT
 
 # Move pkgconfig und CMake-stuff to generic datadir.
-%{__mv} -f $RPM_BUILD_ROOT%{_prefix}/lib/* $RPM_BUILD_ROOT%{_datadir}
+%{__mv} $RPM_BUILD_ROOT%{_prefix}/lib/* $RPM_BUILD_ROOT%{_datadir}
 
 cp -a example/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
@@ -121,10 +139,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc CHANGELOG.md readme*.md
+%doc CHANGELOG.md license.txt readme.md
+%lang(zh_CN) %doc readme.zh-cn.md
 %{_datadir}/cmake
-%{_npkgconfigdir}/*.pc
-%{_includedir}/%{name}
+%{_npkgconfigdir}/RapidJSON.pc
+%{_includedir}/rapidjson
 
 %files doc
 %defattr(644,root,root,755)
