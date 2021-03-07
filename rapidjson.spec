@@ -53,7 +53,7 @@ RapidJSON powinien być w pełni zgodny z RFC4627/ECMA-404.
 Summary:	Fast JSON parser and generator for C++
 Summary(pl.UTF-8):	Szybki parser i generator JSON-a dla C++
 Group:		Development/Libraries
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description devel
 RapidJSON is a fast JSON parser and generator for C++. It was inspired
@@ -91,7 +91,7 @@ RapidJSON powinien być w pełni zgodny z RFC4627/ECMA-404.
 Summary:	Documentation files for RapidJSON
 Summary(pl.UTF-8):	Dokumentacja do biblioteki RapidJSON
 Group:		Documentation
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description doc
 This package contains the documentation files for RapidJSON.
