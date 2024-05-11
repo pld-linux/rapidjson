@@ -2,7 +2,7 @@ Summary:	Fast JSON parser and generator for C++
 Summary(pl.UTF-8):	Szybki parser i generator JSON-a dla C++
 Name:		rapidjson
 Version:	1.1.0
-Release:	2
+Release:	3
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/Tencent/rapidjson/releases
@@ -14,6 +14,7 @@ URL:		http://miloyip.github.io/rapidjson
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	gtest-devel
+BuildRequires:	libstdc++-devel >= 6:8
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	valgrind
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -113,6 +114,8 @@ find . -type f -name 'CMakeLists.txt' -print0 | \
 install -d build
 cd build
 %cmake .. \
+	-DRAPIDJSON_BUILD_CXX11:BOOL=OFF \
+	-DRAPIDJSON_BUILD_CXX17:BOOL=ON \
 	-DGTESTSRC_FOUND=TRUE \
 	-DGTEST_SOURCE_DIR=.
 
