@@ -17,6 +17,7 @@ BuildRequires:	gtest-devel
 BuildRequires:	libstdc++-devel >= 6:8
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	valgrind
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -55,7 +56,6 @@ RapidJSON powinien być w pełni zgodny z RFC4627/ECMA-404.
 Summary:	Fast JSON parser and generator for C++
 Summary(pl.UTF-8):	Szybki parser i generator JSON-a dla C++
 Group:		Development/Libraries
-BuildArch:	noarch
 
 %description devel
 RapidJSON is a fast JSON parser and generator for C++. It was inspired
@@ -93,7 +93,6 @@ RapidJSON powinien być w pełni zgodny z RFC4627/ECMA-404.
 Summary:	Documentation files for RapidJSON
 Summary(pl.UTF-8):	Dokumentacja do biblioteki RapidJSON
 Group:		Documentation
-BuildArch:	noarch
 
 %description doc
 This package contains the documentation files for RapidJSON.
