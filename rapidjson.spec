@@ -2,15 +2,15 @@ Summary:	Fast JSON parser and generator for C++
 Summary(pl.UTF-8):	Szybki parser i generator JSON-a dla C++
 Name:		rapidjson
 Version:	1.1.1
-%define	gitref	24b5e7a8b27f42fa16b96fc70aade9106cf7102f
-%define	snap	20250205
+%define	gitref	297637bc0a0f00dc504dbc1a47ebdaa577f8ae19
+%define	snap	20261103
 %define	rel	1
 Release:	0.snap%{snap}.%{rel}
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/Tencent/rapidjson/releases
 Source0:	rapidjson-%{version}-0.git.%{gitref}.tar.gz
-# Source0-md5:	bac681730be669812f8857a761f5096f
+# Source0-md5:	6876000af05f74c36812049fe0b2beb6
 Patch0:		%{name}-1.1.0-do_not_include_gtest_src_dir.patch
 URL:		http://rapidjson.org/
 BuildRequires:	cmake >= 3.5
